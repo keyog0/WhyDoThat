@@ -42,16 +42,17 @@ class WantedSpider(scrapy.Spider):
         detail_addr = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax\
                                     > div._33u5kCnL62igIXfrIg7Ikl > div._31EtVNPZ-KwYCXvVZ3927g > section._3XP3DBqOgzsz7P6KrVpbGO > div:nth-child(2) > span::text').getall()[1]
 
-        doc['wanted_job_card_titles'] = response.meta['job_card_title']
-        doc['wanted_job_card_companys'] = response.meta['job_card_company']
-        doc['wanted_job_card_hrefs'] = response.meta['job_card_href']
-        doc['wanted_detail_tag'] = detail_tag
-        doc['wanted_detail_intro'] = detail_intro
-        doc['wanted_detail_main_work'] = detail_main_work
-        doc['wanted_detail_require'] = detail_require
-        doc['wanted_detail_prefer'] = detail_prefer
-        doc['wanted_detail_welfare'] = detail_welfare
-        doc['wanted_detail_addr'] = detail_addr
+        doc['job_card_titles'] = response.meta['job_card_title']
+        doc['job_card_companys'] = response.meta['job_card_company']
+        doc['job_card_hrefs'] = response.meta['job_card_href']
+        doc['detail_tag'] = detail_tag
+        doc['detail_intro'] = detail_intro
+        doc['detail_main_work'] = detail_main_work
+        doc['detail_require'] = detail_require
+        doc['detail_prefer'] = detail_prefer
+        doc['detail_welfare'] = detail_welfare
+        doc['detail_addr'] = detail_addr
+        doc['platform'] = self.name
         print('-'*10,'크롤링 결과','-'*10)
         
         yield doc
