@@ -1,2 +1,2 @@
-# WhyDoThat-Backend
-WhyDoThat first project Backend parts
+# WhyDoThat
+WhyDoThat first project
