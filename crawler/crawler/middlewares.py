@@ -52,7 +52,16 @@ class SeleniumMiddleware:
                 if new_height == last_height:
                     break
                 last_height = new_height
-            
+                
+        if spider.name == 'roketpunch' and 'job_card_company' in request.meta :
+            # print(request.meta)
+            try :
+                self.driver.find_element_by_class_name('see-more-text.primary.link').click()
+                time.sleep(0.5)
+                self.driver.find_element_by_class_name('see-more-text.primary.link').click()
+                time.sleep(0.5)
+            except :
+                print('[Notice] 더보기 버튼이 없습니다.')
         body = to_bytes(text=self.driver.page_source)
 
         return HtmlResponse(url = request.url, body = body, encoding='utf-8',request=request)
