@@ -39,31 +39,35 @@ class SeleniumMiddleware:
     
     def spider_closed(self,spider) :
         self.driver.close()
+        
+    def infinite_scroll_control(self) :
+        last_height = self.driver.execute_script("return document.body.scrollHeight")
+        while True :
+            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(1)
+            new_height = self.driver.execute_script("return document.body.scrollHeight")
+            if new_height == last_height:
+                break
+            last_height = new_height
+    
+    def see_more_button_click(self):
+        try :
+            self.driver.find_element_by_class_name('see-more-text.primary.link').click()
+            time.sleep(0.5)
+            self.driver.find_element_by_class_name('see-more-text.primary.link').click()
+            time.sleep(0.5)
+        except :
+            print('[Notice] 더보기 버튼이 없습니다.')
 
     def process_request(self, request, spider):
         self.driver.get(request.url)
         time.sleep(1)
         if spider.name == 'wanted' and request.meta == {}:
-            last_height = self.driver.execute_script("return document.body.scrollHeight")
-            while True :
-                self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                time.sleep(1)
-                new_height = self.driver.execute_script("return document.body.scrollHeight")
-                if new_height == last_height:
-                    break
-                last_height = new_height
-                
-        if spider.name == 'roketpunch' and 'job_card_company' in request.meta :
-            # print(request.meta)
-            try :
-                self.driver.find_element_by_class_name('see-more-text.primary.link').click()
-                time.sleep(0.5)
-                self.driver.find_element_by_class_name('see-more-text.primary.link').click()
-                time.sleep(0.5)
-            except :
-                print('[Notice] 더보기 버튼이 없습니다.')
+            self.infinite_scroll_control()
+        elif spider.name == 'roketpunch' and 'job_card_company' in request.meta :
+            self.see_more_button_click()
+            
         body = to_bytes(text=self.driver.page_source)
-
         return HtmlResponse(url = request.url, body = body, encoding='utf-8',request=request)
 
     def process_response(self, request, response, spider):
