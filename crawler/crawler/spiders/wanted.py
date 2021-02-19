@@ -1,5 +1,6 @@
 import scrapy
 from crawler.items import CrawlerItem
+from crawler.data_controller import style_image_parse
 
 class WantedSpider(scrapy.Spider):
     name = 'wanted'
@@ -23,36 +24,34 @@ class WantedSpider(scrapy.Spider):
             yield scrapy.Request(url=self.main_url+job_card_href,callback=self.parse_job_detail,meta={'job_card_title':job_card_titles[index],
                                                                                                   'job_card_company':job_card_companys[index],
                                                                                                   'job_card_href':self.main_url+job_card_href})
-            
     def parse_job_detail(self, response):
         doc = CrawlerItem()
         print(response.meta['job_card_title'],response.meta['job_card_company'])
-        detail_tag = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax\
-                                    > div._33u5kCnL62igIXfrIg7Ikl > section.Bfoa2bzuGpxK9ieE1GxhW > div.ObubI7m2AFE5fxlR8Va9t > ul > li > a::text').getall()
-        detail_intro = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax\
-                                    > div._33u5kCnL62igIXfrIg7Ikl > div._31EtVNPZ-KwYCXvVZ3927g > section._1LnfhLPc7hiSZaaXxRv11H > p:nth-child(1) > span::text').getall()
-        detail_main_work = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax\
-                                    > div._33u5kCnL62igIXfrIg7Ikl > div._31EtVNPZ-KwYCXvVZ3927g > section._1LnfhLPc7hiSZaaXxRv11H > p:nth-child(3) > span::text').getall()
-        detail_require = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax\
-                                    > div._33u5kCnL62igIXfrIg7Ikl > div._31EtVNPZ-KwYCXvVZ3927g > section._1LnfhLPc7hiSZaaXxRv11H > p:nth-child(5) > span::text').getall()
-        detail_prefer = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax\
-                                    > div._33u5kCnL62igIXfrIg7Ikl > div._31EtVNPZ-KwYCXvVZ3927g > section._1LnfhLPc7hiSZaaXxRv11H > p:nth-child(7) > span::text').getall()
-        detail_welfare = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax\
-                                    > div._33u5kCnL62igIXfrIg7Ikl > div._31EtVNPZ-KwYCXvVZ3927g > section._1LnfhLPc7hiSZaaXxRv11H > p:nth-child(9) > span::text').getall()
-        detail_addr = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax\
-                                    > div._33u5kCnL62igIXfrIg7Ikl > div._31EtVNPZ-KwYCXvVZ3927g > section._3XP3DBqOgzsz7P6KrVpbGO > div:nth-child(2) > span::text').getall()[1]
 
-        doc['job_card_titles'] = response.meta['job_card_title']
-        doc['job_card_companys'] = response.meta['job_card_company']
-        doc['job_card_hrefs'] = response.meta['job_card_href']
-        doc['detail_tag'] = detail_tag
-        doc['detail_intro'] = detail_intro
-        doc['detail_main_work'] = detail_main_work
-        doc['detail_require'] = detail_require
-        doc['detail_prefer'] = detail_prefer
-        doc['detail_welfare'] = detail_welfare
-        doc['detail_addr'] = detail_addr
+        detail_main_text = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax\
+                                        > div > div._31EtVNPZ-KwYCXvVZ3927g > section._3_gsSnQyvwrqCAjw47hjWK ').getall()
+        detail_deadline = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax\
+                                        > div > div._31EtVNPZ-KwYCXvVZ3927g > section._3XP3DBqOgzsz7P6KrVpbGO > div:nth-child(1) > span.body::text').get()
+        detail_addr = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax\
+                                    > div._33u5kCnL62igIXfrIg7Ikl > div._31EtVNPZ-KwYCXvVZ3927g > section._3XP3DBqOgzsz7P6KrVpbGO > div:nth-child(2) > span.body::text').get()
+        image = response.css('#__next > div > div._37L2cip40tqu3zm3KC4dAa > div._17tolBMfrAeoPmo6I9pA1P > div._1FVm15xN253istI2zLF_Ax \
+                                > div > section._3h_f6TfissC0l7ogPcn7lY > button.left > div.logo::attr(style)').getall()
+
         doc['platform'] = self.name
-        print('-'*10,'크롤링 결과','-'*10)
+
+        doc['job_item_logo'] = style_image_parse(image)
+        doc['job_item_title'] = response.meta['job_card_title']
+        doc['job_item_href'] = response.meta['job_card_href']
+        
+        doc['job_item_main_text'] = ''.join(detail_main_text)
+        doc['job_item_salary'] = None
+        doc['job_item_skill_tag'] = None
+        doc['job_item_sector'] = response.meta['job_card_title']
+        doc['job_item_newbie'] = 1
+        doc['job_item_career'] = '무관'
+        doc['job_item_deadline'] = detail_deadline
+        
+        doc['company_name'] = response.meta['job_card_company']
+        doc['company_address'] = detail_addr
         
         yield doc

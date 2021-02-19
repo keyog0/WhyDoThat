@@ -71,7 +71,6 @@ class JobplanetSpider(scrapy.Spider):
                               'interviews' : get_interviews_data}
         get_data_func_dict[response.meta['detail_item']](response)
         
-        print(doc)
         yield doc
         
         

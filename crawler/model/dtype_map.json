@@ -1,0 +1,15 @@
+{
+    "job_item_title" : "string",
+    "job_item_href" : "string",
+    "job_item_main_text" : "string",
+    "job_item_salary" : "string",    
+    "job_item_skill_tag" : "string",
+    "job_item_sector" : "string",
+    "job_item_newbie" : "bool",
+    "job_item_career" : "string",
+    "job_item_deadline" : "datetime",
+    "company_name" : "string",
+    "company_address" : "string",
+    "platform" : "string",
+    "job_item_logo" : "string"
+}
