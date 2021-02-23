@@ -12,12 +12,11 @@ import datetime
 from crawler.data_controller import arr2str
 
 sql_db = MySQL(key_file='../keys/localhost_sql_key.json',
-               database='keyog')
+               database='crawl_job')
 with open('model/dtype_map.json') as file :
     dtype_map = json.load(file)
 
 class CrawlerPipeline:
-    
     def create_sql_item(self,item,dtype) :
         if dtype == 'string' or 'datetime':
             return "'{}'".format(item)
@@ -25,14 +24,18 @@ class CrawlerPipeline:
             return "{}".format(item)
             
     def process_item(self, items, spider):
-        # print('@'*10,'pipeline','@'*10)
+        print('@'*10,'pipeline','@'*10)
         key_arr = []
         item_arr = []
-        print(items)
+        # print(items)
         for key, item in items.items() :
             key_arr.append(key)
             item_arr.append(self.create_sql_item(item,dtype=dtype_map[key]))
         
         sql_db.insert_data('job_detail',arr2str(key_arr),arr2str(item_arr))
-
+        print('[Success]insert data for mysql')
         return items
+
+    def open_spider(self,spider) :
+        sql_db.MYSQL_CONN = sql_db.conn_mysqldb()
+

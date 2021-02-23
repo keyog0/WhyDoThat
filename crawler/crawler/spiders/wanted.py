@@ -7,6 +7,9 @@ class WantedSpider(scrapy.Spider):
     custom_settings= {
         'DOWNLOADER_MIDDLEWARES': { 
             'crawler.middlewares.SeleniumMiddleware': 100 
+        },
+        'ITEM_PIPELINES' : {
+            'crawler.pipelines.CrawlerPipeline': 300
         }
     }
     main_url = 'https://www.wanted.co.kr'

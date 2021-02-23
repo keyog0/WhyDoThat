@@ -9,6 +9,9 @@ class RoketpunchSpider(scrapy.Spider):
     custom_settings= {
         'DOWNLOADER_MIDDLEWARES': { 
             'crawler.middlewares.SeleniumMiddleware': 100 
+        },
+        'ITEM_PIPELINES' : {
+            'crawler.pipelines.CrawlerPipeline': 300
         }
     }
     
@@ -82,7 +85,7 @@ class RoketpunchSpider(scrapy.Spider):
         doc['job_item_title'] = response.meta['job_card_title']
         doc['job_item_href'] = response.meta['job_card_href']
         
-        doc['job_item_main_text'] = ''.join(detail_main_work+detail_require+detail_welfare)
+        doc['job_item_main_text'] = ''.join(detail_main_work+detail_require+detail_welfare).replace("\'",'＇')
         doc['job_item_salary'] = table_dict['연봉']
         doc['job_item_skill_tag'] = arr2str(detail_tag)
         doc['job_item_sector'] = response.meta['job_card_title']

@@ -5,6 +5,11 @@ from crawler.data_controller import remove_blank_all,wave_split
 class ProgrammersSpider(scrapy.Spider):
     name = 'programmers'
     main_url = 'https://programmers.co.kr'
+    custom_settings= {
+        'ITEM_PIPELINES' : {
+            'crawler.pipelines.CrawlerPipeline': 300
+        }
+    }
     
     
     def table2dict(self,labels,contents) :
@@ -35,7 +40,7 @@ class ProgrammersSpider(scrapy.Spider):
                              callback=self.parse_main_page)
         
     def parse_main_page(self, response):
-        print('-'*10,'크롤링 결과','-'*10)
+        print('-'*10,'마지막 페이지 번호','-'*10)
         last_page_number = int(response.css('#paginate > nav > ul > li:nth-child(8) > a::text').getall()[0])
         print(last_page_number)
         print('-'*33)
