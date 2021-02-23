@@ -1,4 +1,5 @@
-use keyog;
+use crawl_job;
+show tables;
 drop table if exists job_detail;
 create table job_detail (
     job_item_id int unsigned not null auto_increment primary key,
