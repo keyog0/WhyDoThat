@@ -2,7 +2,7 @@ $(document).ready(function(){
     $('#confirmpassword').keyup( function(e){
         var password = $('#password').val();
         var confirmpassword = $('#confirmpassword').val();
-
+        console.log(password, confirmpassword)
 
         if(password != confirmpassword){
   

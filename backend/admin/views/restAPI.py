@@ -18,7 +18,6 @@ def register() :
 
 @app.route('/checkemail', methods=["POST"])
 def check() :
-    print('@'*20)
     return user_mgmt.checkemail()
 
 @app.route('/login',methods=["GET","POST"])
@@ -29,10 +28,10 @@ def login() :
         else :
             return redirect(url_for('index'))
 
-@app.route('/checkloginusername', methods=["POST"])
+@app.route('/checkloginemail', methods=["POST"])
 def checkUserlogin():
     print('@'*20)
-    return user_mgmt.checkloginusername()
+    return user_mgmt.checkloginemail()
 
 @app.route('/checkloginpassword', methods=["POST"])
 def checkUserpassword():
@@ -42,7 +41,7 @@ def checkUserpassword():
 @app.route('/logout', methods=["GET"])  # URL for logout
 def logout():  # logout function
     logout_user()  # remove user session
-    return redirect(url_for("home"))  # redirect to home page with message
+    return redirect(url_for("login"))  # redirect to home page with message
 
 #Forgot Password
 @app.route('/forgot-password', methods=["GET"])

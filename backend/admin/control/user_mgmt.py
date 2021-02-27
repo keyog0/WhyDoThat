@@ -8,10 +8,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from admin.model.mysql import User
 import datetime
 
-def checkloginusername():
+def checkloginemail():
     email = request.form["email"]
     print(email)
-    user = db.session.query(User).filter_by(login=email).first()
+    user = db.session.query(User).filter_by(email=email).first()
     if user is None:
         return "No User"
     else:
@@ -19,10 +19,8 @@ def checkloginusername():
 
 def checkloginpassword():
     email = request.form["email"]
-    user = db.session.query(User).filter_by(login=email).first()
+    user = db.session.query(User).filter_by(email=email).first()
     password = request.form["password"]
-    hashpassword = check_password_hash(password)
-    print(user.email,user.password)
     if check_password_hash(user.password,password) :
         login_user(user,remember=True, duration=datetime.timedelta(days=30))
         return "correct"
@@ -31,9 +29,11 @@ def checkloginpassword():
     
 def checkemail():
     email = request.form["email"]
-    check = db.session.query(User).filter_by(login=email).first()
+    check = db.session.query(User).filter_by(email=email).first()
     if check is None:
         return "Available"
+    elif '@' not in email :
+        return "\'@\' is Not Exist, Please write email form"
     else:
         return "This Email Already Exist"
 

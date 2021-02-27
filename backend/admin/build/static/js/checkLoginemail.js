@@ -1,13 +1,13 @@
 $(document).ready(function(){
-    $('#username').change( function(e){
-        var username = $('#username').val();
-
-        if(username != ''){
+    $('#email').change( function(e){
+        var email = $('#email').val();
+        console.log(email)
+        if(email != ''){
   
            $.ajax({
-              url: '/checkloginusername',
+              url: '/checkloginemail',
               type: 'post',
-              data: {username: username},
+              data: {email: email},
               success: function(response){
                     if (response == "No User"){
                         $('#uname_response').html("User does not exist").css({'color':'red', 'text-align':'right'});

@@ -12,6 +12,8 @@ CORS(app)
 # Initialize babel
 babel = Babel(app)
 
+from admin.model.mysql import User
+
 def init_login():
     login_manager = LoginManager()
     login_manager.init_app(app)
