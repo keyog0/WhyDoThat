@@ -1,6 +1,7 @@
 import scrapy
 from crawler.items import CrawlerItem
 from crawler.data_controller import style_image_parse
+from datetime import date
 
 class WantedSpider(scrapy.Spider):
     name = 'wanted'
@@ -42,19 +43,20 @@ class WantedSpider(scrapy.Spider):
 
         doc['platform'] = self.name
 
-        doc['job_item_logo'] = style_image_parse(image)
-        doc['job_item_title'] = response.meta['job_card_title']
-        doc['job_item_href'] = response.meta['job_card_href']
+        doc['logo_image'] = style_image_parse(image)
+        doc['title'] = response.meta['job_card_title']
+        doc['href'] = response.meta['job_card_href']
         
-        doc['job_item_main_text'] = ''.join(detail_main_text)
-        doc['job_item_salary'] = None
-        doc['job_item_skill_tag'] = None
-        doc['job_item_sector'] = response.meta['job_card_title']
-        doc['job_item_newbie'] = 1
-        doc['job_item_career'] = '무관'
-        doc['job_item_deadline'] = detail_deadline
+        doc['main_text'] = ''.join(detail_main_text)
+        doc['salary'] = None
+        doc['skill_tag'] = None
+        doc['sector'] = response.meta['job_card_title']
+        doc['newbie'] = 1
+        doc['career'] = '무관'
+        doc['deadline'] = detail_deadline
         
         doc['company_name'] = response.meta['job_card_company']
         doc['company_address'] = detail_addr
+        doc['crawl_date'] = str(date.today())
         
         yield doc

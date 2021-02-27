@@ -62,10 +62,10 @@ class SeleniumMiddleware:
     def process_request(self, request, spider):
         self.driver.get(request.url)
         time.sleep(1.5)
-        # if spider.name == 'wanted' and request.meta == {}:
-        #     self.infinite_scroll_control()
-        # elif spider.name == 'roketpunch' and 'job_card_company' in request.meta :
-        #     self.see_more_button_click()
+        if spider.name == 'wanted' and request.meta == {}:
+            self.infinite_scroll_control()
+        elif spider.name == 'roketpunch' and 'job_card_company' in request.meta :
+            self.see_more_button_click()
             
         body = to_bytes(text=self.driver.page_source)
         return HtmlResponse(url = request.url, body = body, encoding='utf-8',request=request)

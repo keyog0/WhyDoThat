@@ -1,6 +1,7 @@
 import scrapy
 from crawler.items import CrawlerItem
 from crawler.data_controller import remove_blank_all,wave_split
+from datetime import date
 
 class ProgrammersSpider(scrapy.Spider):
     name = 'programmers'
@@ -89,19 +90,20 @@ class ProgrammersSpider(scrapy.Spider):
         # doc 선언
         doc['platform'] = self.name
         
-        doc['job_item_logo'] = image
-        doc['job_item_title'] = response.meta['job_card_title']
-        doc['job_item_href'] = response.meta['job_card_href']
+        doc['logo_image'] = image
+        doc['title'] = response.meta['job_card_title']
+        doc['href'] = response.meta['job_card_href']
         
-        doc['job_item_main_text'] = ''.join(detail_position+detail_requirements+detail_preference+detail_description)
-        doc['job_item_salary'] = table_dict['연봉']
-        doc['job_item_skill_tag'] = detail_tag
-        doc['job_item_sector'] = table_dict['직무']
-        doc['job_item_newbie'] = table_dict['신입여부']
-        doc['job_item_career'] = table_dict['경력여부']
-        doc['job_item_deadline'] = table_dict['기간']
+        doc['main_text'] = ''.join(detail_position+detail_requirements+detail_preference+detail_description)
+        doc['salary'] = table_dict['연봉']
+        doc['skill_tag'] = detail_tag.upper()
+        doc['sector'] = response.meta['job_card_title']
+        doc['newbie'] = table_dict['신입여부']
+        doc['career'] = table_dict['경력여부']
+        doc['deadline'] = table_dict['기간']
         
         doc['company_name'] = response.meta['job_card_company']
         doc['company_address'] = table_dict['위치']
+        doc['crawl_date'] = str(date.today())
         
         yield doc

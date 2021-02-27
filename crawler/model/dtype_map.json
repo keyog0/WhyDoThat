@@ -1,15 +1,16 @@
 {
-    "job_item_title" : "string",
-    "job_item_href" : "string",
-    "job_item_main_text" : "string",
-    "job_item_salary" : "string",    
-    "job_item_skill_tag" : "string",
-    "job_item_sector" : "string",
-    "job_item_newbie" : "bool",
-    "job_item_career" : "string",
-    "job_item_deadline" : "datetime",
+    "title" : "string",
+    "href" : "string",
+    "main_text" : "string",
+    "salary" : "string",    
+    "skill_tag" : "string",
+    "sector" : "string",
+    "newbie" : "bool",
+    "career" : "string",
+    "deadline" : "datetime",
     "company_name" : "string",
     "company_address" : "string",
     "platform" : "string",
-    "job_item_logo" : "string"
+    "logo_image" : "string",
+    "crawl_date" : "string"
 }

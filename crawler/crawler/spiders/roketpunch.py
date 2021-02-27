@@ -2,6 +2,7 @@ import scrapy
 from scrapy.selector import Selector
 from crawler.items import CrawlerItem
 from crawler.data_controller import wave_split,arr2str
+from datetime import date
 
 class RoketpunchSpider(scrapy.Spider):
     name = 'roketpunch'
@@ -81,19 +82,20 @@ class RoketpunchSpider(scrapy.Spider):
         
         doc['platform'] = self.name
 
-        doc['job_item_logo'] = response.meta['logo_image']
-        doc['job_item_title'] = response.meta['job_card_title']
-        doc['job_item_href'] = response.meta['job_card_href']
+        doc['logo_image'] = response.meta['logo_image']
+        doc['title'] = response.meta['job_card_title']
+        doc['href'] = response.meta['job_card_href']
         
-        doc['job_item_main_text'] = ''.join(detail_main_work+detail_require+detail_welfare).replace("\'",'＇')
-        doc['job_item_salary'] = table_dict['연봉']
-        doc['job_item_skill_tag'] = arr2str(detail_tag)
-        doc['job_item_sector'] = response.meta['job_card_title']
-        doc['job_item_newbie'] = table_dict['신입여부']
-        doc['job_item_career'] = table_dict['경력여부']
-        doc['job_item_deadline'] = deadline
+        doc['main_text'] = ''.join(detail_main_work+detail_require+detail_welfare).replace("\'",'＇')
+        doc['salary'] = table_dict['연봉']
+        doc['skill_tag'] = arr2str(detail_tag).upper()
+        doc['sector'] = response.meta['job_card_title']
+        doc['newbie'] = table_dict['신입여부']
+        doc['career'] = table_dict['경력여부']
+        doc['deadline'] = deadline
         
         doc['company_name'] = response.meta['job_card_company']
         doc['company_address'] = detail_addr
+        doc['crawl_date'] = str(date.today())
         
         yield doc

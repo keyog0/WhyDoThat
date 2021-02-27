@@ -11,26 +11,21 @@ class CrawlerItem(scrapy.Item):
     # name = scrapy.Field()
     platform = scrapy.Field()
     
-    job_item_logo = scrapy.Field()
-    job_item_title = scrapy.Field()
-    job_item_href = scrapy.Field()
+    logo_image = scrapy.Field()
+    title = scrapy.Field()
+    href = scrapy.Field()
     
-    job_item_main_text = scrapy.Field()
-    job_item_salary = scrapy.Field()
-    job_item_skill_tag = scrapy.Field()
-    job_item_sector = scrapy.Field()
-    job_item_newbie = scrapy.Field()
-    job_item_career = scrapy.Field()
-    job_item_deadline = scrapy.Field()
+    main_text = scrapy.Field()
+    salary = scrapy.Field()
+    skill_tag = scrapy.Field()
+    sector = scrapy.Field()
+    newbie = scrapy.Field()
+    career = scrapy.Field()
+    deadline = scrapy.Field()
     
     company_name = scrapy.Field()
     company_address = scrapy.Field()
-    
-    detail_intro = scrapy.Field()
-    detail_main_work = scrapy.Field()
-    detail_require = scrapy.Field()
-    detail_prefer = scrapy.Field()
-    detail_welfare = scrapy.Field()
+    crawl_date = scrapy.Field()
 
 class JobplanetItem(scrapy.Item) :
     # 잡플래닛 검색 데이터 저장
