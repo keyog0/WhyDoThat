@@ -10,7 +10,7 @@ $(document).ready(function(){
               data: {email: email},
               success: function(response){
                     if (response == "No User"){
-                        $('#uname_response').html("User does not exist").css({'color':'red', 'text-align':'right'});
+                        $('#uname_response').html("없는 이메일 입니다.").css({'color':'red', 'text-align':'right'});
                         $('#button').prop('disabled', true);
                     }else{
                         $('#uname_response').html("");

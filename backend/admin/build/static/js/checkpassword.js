@@ -6,7 +6,7 @@ $(document).ready(function(){
 
         if(password != confirmpassword){
   
-           $('#pass_response').html("The two passwords that you entered do not match.").css({'color':'red', 'text-align':'right'});
+           $('#pass_response').html("입력한 비밀번호와 비밀번호 확인이 맞지 않습니다.").css({'color':'red', 'text-align':'right'});
            $('#button').prop('disabled', true);
         }else{
            $("#pass_response").html("");

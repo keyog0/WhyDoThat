@@ -18,7 +18,7 @@ $("#login").submit(function () {
         swal
           .fire({
             icon: "success",
-            title: "Login Successful",
+            title: "로그인 성공",
           })
           .then((result) => {
             window.location.href = "/"
@@ -28,7 +28,7 @@ $("#login").submit(function () {
           .fire({
             icon: "error",
             title: "Login Error",
-            text: "Incorrect Username or password",
+            text: "이메일이 틀렸거나, 비밀번호가 틀립니다.",
           })
           .then((result) => {
             $("#button").removeAttr("disabled")

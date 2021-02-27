@@ -30,7 +30,6 @@ def login() :
 
 @app.route('/checkloginemail', methods=["POST"])
 def checkUserlogin():
-    print('@'*20)
     return user_mgmt.checkloginemail()
 
 @app.route('/checkloginpassword', methods=["POST"])
