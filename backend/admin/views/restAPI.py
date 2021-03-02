@@ -4,9 +4,13 @@ from flask import request, redirect, url_for, session
 from admin.control import user_mgmt
 from flask_login import logout_user,current_user
 
-@app.route('/')
+@app.route('/',methods=["GET","POST"])
 def index() :
-    return send_from_directory('./build/', 'index.html')
+    if request.method == "GET" :
+        if not current_user.is_authenticated :
+            return redirect(url_for('login'))
+        else :
+            return redirect('/admin')
 
 @app.route('/register',methods=["GET","POST"])
 def register() :
@@ -45,6 +49,6 @@ def logout():  # logout function
 #Forgot Password
 @app.route('/forgot-password', methods=["GET"])
 def forgotpassword():
-    return render_template('forgot-password.html')
+    return send_from_directory('./views/templates/','forgot-password.html')
 
 #404 Page

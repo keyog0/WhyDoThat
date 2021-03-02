@@ -1,34 +1,34 @@
 function loginSuccess() {
   toastr.success("Redirecting you to the dashboard")
-  window.location.href = "/"
+  window.location.href = "/login"
 }
 
-$("#login").submit(function () {
+$("#forgot-password").submit(function () {
   $("#button").prop("disabled", true)
   $("#img").show()
   event.preventDefault()
   $.ajax({
-    url: "/checkloginpassword",
+    url: "/checkemail",
     data: $(this).serialize(),
     type: "POST",
     success: function (response) {
       $("#img").hide()
-      if (response === "correct") {
+      if (response === "Exist") {
         setTimeout(loginSuccess, 5000)
         swal
           .fire({
             icon: "success",
-            title: "로그인 성공",
+            title: "메일 전송 성공",
           })
           .then((result) => {
-            window.location.href = "/"
+            window.location.href = "/login"
           })
-      } else if (response === "wrong") {
+      } else if (response === "No User" || "Not@"){
         swal
           .fire({
             icon: "error",
-            title: "로그인 실패",
-            text: "이메일이 틀렸거나, 비밀번호가 틀립니다.",
+            title: "메일 전송 실패",
+            text: "가입되지 않은 이메일이거나 잘못된 형식 입니다.",
           })
           .then((result) => {
             $("#button").removeAttr("disabled")
