@@ -12,6 +12,16 @@ def index() :
         else :
             return redirect('/admin')
 
+@app.route('/admin',methods=["GET","POST"])
+def admin_page():
+    if request.method == "GET" :
+        if not current_user.is_authenticated :
+            return redirect(url_for('login'))
+        elif current_user.is_authenticated and current_user.auth == u'admin' :
+            return redirect(f'/admin{app.config["ADMIN_KEY"]}')
+        else :
+            return render_template('error-admin.html')
+
 @app.route('/register',methods=["GET","POST"])
 def register() :
     if request.method == "GET" :

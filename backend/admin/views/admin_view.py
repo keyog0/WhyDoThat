@@ -130,8 +130,7 @@ class JobDetailAdmin(sqla.ModelView) :
         'href' : _set_hyper_link
     }
 
-
-admin = admin.Admin(app,name ='WhyDoThat Admin page', template_mode='bootstrap4')
+admin = admin.Admin(app,url=f'/admin{app.config["ADMIN_KEY"]}',name ='WhyDoThat Admin page', template_mode='bootstrap4')
 
 admin.add_view(UserAdmin(User,db.session))
 admin.add_view(JobDetailAdmin(JobDetail,db.session))
@@ -140,4 +139,4 @@ admin.add_view(sqla.ModelView(JobSkill,db.session))
 admin.add_view(sqla.ModelView(Resume,db.session,category='Other'))
 admin.add_sub_category(name="Links", parent_name="Other")
 admin.add_link(MenuLink(name='Back Home', url='/', category='Links'))
-admin.add_link(MenuLink(name='Login', url='/login', category='Links'))
+admin.add_link(MenuLink(name='Logout', url='/logout', category='Links'))

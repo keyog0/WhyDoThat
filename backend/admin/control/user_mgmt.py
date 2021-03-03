@@ -49,3 +49,18 @@ def registerUser():
     db.session.add(user)
     db.session.commit()
     print("[Notice]User Resister Done")
+
+def registerAdmin():
+    if db.session.query(User).filter_by(email='admin@admin').first() is None :
+        user = User()
+
+        user.auth = u'admin'
+        user.email = 'admin@admin'
+        user.nickname = 'admin'
+        user.password = generate_password_hash('wdt210309')
+
+        db.session.add(user)
+        db.session.commit()
+        print('Create Admin account')
+    else :
+        print('Already Exist Admin account')

@@ -11,7 +11,7 @@ import json
 import datetime
 from crawler.data_controller import arr2str
 
-sql_db = MySQL(key_file='../keys/localhost_sql_key.json',
+sql_db = MySQL(key_file='../keys/aws_sql_key.json',
                database='crawl_job')
 with open('model/dtype_map.json') as file :
     dtype_map = json.load(file)

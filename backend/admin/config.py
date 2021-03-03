@@ -8,6 +8,7 @@ def load_key(key_file) :
 
 FLASK_ADMIN_SWATCH = 'journal'
 
+ADMIN_KEY = 'qweifnfndakvj'
 SECRET_KEY = '12345679j0'
 
 db = load_key(key_file='../keys/localhost_sql_key.json')
