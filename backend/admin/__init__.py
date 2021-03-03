@@ -1,10 +1,10 @@
-from flask import Flask, request, session
+from flask import Flask, request, session,make_response,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_babelex import Babel
 from flask_cors import CORS
 from flask_login import LoginManager
 
-app = Flask(__name__, static_folder='./build/static')
+app = Flask(__name__, static_folder='./build/static',template_folder='./views/templates')
 app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 CORS(app)

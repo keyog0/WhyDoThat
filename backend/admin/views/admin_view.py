@@ -11,7 +11,7 @@ from flask_admin.form.rules import HTML,Markup
 
 class UserAdmin(sqla.ModelView):
     can_view_details = True
-    create_modal = True
+    create_modal = False
     edit_modal = True
     column_auto_select_related = True
     column_default_sort = [('nickname', False)]  # sort on multiple columns
@@ -73,7 +73,7 @@ def _set_html(view,text,model,name) :
 class JobDetailAdmin(sqla.ModelView) :
     detail_template = 'admin/views/templates/detail.html'
     can_view_details = True
-    column_display_pk = True
+    #column_display_pk = True
     create_modal = True
     edit_modal = True
     can_export = True
@@ -129,8 +129,9 @@ class JobDetailAdmin(sqla.ModelView) :
         'main_text' : _set_html,
         'href' : _set_hyper_link
     }
-    
-admin = admin.Admin(app, name ='WhyDoThat Admin page', template_mode='bootstrap4')
+
+
+admin = admin.Admin(app,name ='WhyDoThat Admin page', template_mode='bootstrap4')
 
 admin.add_view(UserAdmin(User,db.session))
 admin.add_view(JobDetailAdmin(JobDetail,db.session))

@@ -1,5 +1,5 @@
 from admin import app
-from flask import send_from_directory
+from flask import send_from_directory,render_template
 from flask import request, redirect, url_for, session
 from admin.control import user_mgmt
 from flask_login import logout_user,current_user
@@ -15,7 +15,7 @@ def index() :
 @app.route('/register',methods=["GET","POST"])
 def register() :
     if request.method == "GET" :
-        return send_from_directory('./views/templates/','register.html')
+        return render_template('register.html')
     elif request.method == "POST" :
         user_mgmt.registerUser()
         return redirect(url_for('login'))
@@ -28,7 +28,7 @@ def check() :
 def login() :
     if request.method == "GET" :
         if not current_user.is_authenticated :
-            return send_from_directory('./views/templates/','login.html')
+            return render_template('login.html')
         else :
             return redirect(url_for('index'))
 
@@ -49,6 +49,6 @@ def logout():  # logout function
 #Forgot Password
 @app.route('/forgot-password', methods=["GET"])
 def forgotpassword():
-    return send_from_directory('./views/templates/','forgot-password.html')
+    return render_template('forgot-password.html')
 
 #404 Page

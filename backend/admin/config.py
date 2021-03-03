@@ -6,12 +6,13 @@ def load_key(key_file) :
         print(key)
     return key
 
-FLASK_ADMIN_SWATCH = 'cerulean'
+FLASK_ADMIN_SWATCH = 'journal'
 
-SECRET_KEY = '123456790'
+SECRET_KEY = '12345679j0'
 
 db = load_key(key_file='../keys/localhost_sql_key.json')
 database = "crawl_job"
 SQLALCHEMY_DATABASE_URI = f"mysql+mysqlconnector://{db['user']}:{db['password']}@{db['host']}:{db['port']}/{database}?charset=utf8mb4"
 SQLALCHEMY_ECHO = True
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
