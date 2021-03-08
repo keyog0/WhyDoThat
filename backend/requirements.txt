@@ -10,5 +10,5 @@ arrow
 colour
 email_validator
 pymongo
-mysql-connector
+pymysql
 flask-login

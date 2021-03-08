@@ -13,7 +13,7 @@ SECRET_KEY = '12345679j0'
 
 db = load_key(key_file='../keys/localhost_sql_key.json')
 database = "crawl_job"
-SQLALCHEMY_DATABASE_URI = f"mysql+mysqlconnector://{db['user']}:{db['password']}@{db['host']}:{db['port']}/{database}?charset=utf8mb4"
+SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{db['user']}:{db['password']}@{db['host']}:{db['port']}/{database}?charset=utf8mb4"
 SQLALCHEMY_ECHO = True
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 

@@ -10,7 +10,7 @@ class MySQL :
                                 user=KEY['user'],
                                 passwd=KEY['password'],
                                 db=database,
-                                charset='utf8')
+                                charset='utf8mb4')
     
     def load_key(self,key_file) :
         with open(key_file) as key_file :

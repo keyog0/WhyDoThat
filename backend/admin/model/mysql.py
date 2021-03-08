@@ -54,7 +54,7 @@ class JobDetail(db.Model) :
     company_address = db.Column(db.String(500))
     logo_image      = db.Column(db.String(500))
     platform        = db.Column(db.String(100))
-    crawl_date      = db.Column(db.Date)
+    crawl_date      = db.Column(db.DateTime)
 
 skills_sector_table = db.Table('skills_sector',db.Model.metadata,
                             db.Column('job_skill_id', db.Integer, db.ForeignKey('jobsector.id')),

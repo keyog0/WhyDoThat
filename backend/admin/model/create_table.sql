@@ -3,7 +3,7 @@ show tables;
 drop table if exists job_detail;
 create table job_detail (
     id int unsigned not null auto_increment primary key,
-    crawl_date date,
+    crawl_date datetime,
     title varchar(500) not null,
     href varchar(500),
     main_text text not null,
@@ -12,7 +12,7 @@ create table job_detail (
     sector varchar(200),
     newbie boolean,
     career varchar(50),
-    deadline date DEFAULT "1111-11-11",
+    deadline date,
     company_name varchar(100),
     company_address varchar(500),
     platform varchar(100),
