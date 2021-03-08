@@ -11,8 +11,8 @@ from crawler.spiders.wanted import WantedSpider
 
 configure_logging()
 runner = CrawlerRunner()
-#runner.crawl(ProgrammersSpider)
-runner.crawl(RoketpunchSpider)
+runner.crawl(ProgrammersSpider)
+#runner.crawl(RoketpunchSpider)
 #runner.crawl(WantedSpider)
 d = runner.join()
 d.addBoth(lambda _: reactor.stop())
