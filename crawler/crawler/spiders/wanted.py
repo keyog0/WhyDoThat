@@ -1,7 +1,7 @@
 import scrapy
 from crawler.items import CrawlerItem
-from crawler.data_controller import style_image_parse
-from datetime import date
+from crawler.data_controller import style_image_parse,control_deadline
+from datetime import datetime
 
 class WantedSpider(scrapy.Spider):
     name = 'wanted'
@@ -28,6 +28,7 @@ class WantedSpider(scrapy.Spider):
             yield scrapy.Request(url=self.main_url+job_card_href,callback=self.parse_job_detail,meta={'job_card_title':job_card_titles[index],
                                                                                                   'job_card_company':job_card_companys[index],
                                                                                                   'job_card_href':self.main_url+job_card_href})
+
     def parse_job_detail(self, response):
         doc = CrawlerItem()
         print(response.meta['job_card_title'],response.meta['job_card_company'])
@@ -43,20 +44,20 @@ class WantedSpider(scrapy.Spider):
 
         doc['platform'] = self.name
 
-        doc['logo_image'] = style_image_parse(image)
+        doc['logo_image'] = style_image_parse(image)[0]
         doc['title'] = response.meta['job_card_title']
         doc['href'] = response.meta['job_card_href']
         
-        doc['main_text'] = ''.join(detail_main_text)
+        doc['main_text'] = ''.join(detail_main_text).replace("\'",'＇')
         doc['salary'] = None
         doc['skill_tag'] = None
         doc['sector'] = response.meta['job_card_title']
         doc['newbie'] = 1
         doc['career'] = '무관'
-        doc['deadline'] = detail_deadline
+        doc['deadline'] = control_deadline(detail_deadline)
         
         doc['company_name'] = response.meta['job_card_company']
         doc['company_address'] = detail_addr
-        doc['crawl_date'] = str(date.today())
+        doc['crawl_date'] = str(datetime.now())
         
         yield doc

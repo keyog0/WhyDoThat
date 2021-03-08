@@ -2,7 +2,7 @@ import scrapy
 from scrapy.selector import Selector
 from crawler.items import CrawlerItem
 from crawler.data_controller import wave_split,arr2str
-from datetime import date
+from datetime import datetime
 
 class RoketpunchSpider(scrapy.Spider):
     name = 'roketpunch'
@@ -20,7 +20,7 @@ class RoketpunchSpider(scrapy.Spider):
         table_dict = dict()
         for index,key in enumerate(labels) :
             if key == '경력 여부' :
-                if contents[index] in ['신입'] :
+                if '신입' in contents[index] :
                     table_dict['신입여부'] = 1
                     table_dict['경력여부'] = '무관'
                 else :
@@ -44,7 +44,7 @@ class RoketpunchSpider(scrapy.Spider):
         print('-'*33)
         for page_number in range(1,last_page_number+1) :
             yield scrapy.Request(url =self.main_url+f'/jobs?job=1&page={page_number}',callback=self.parse_number_page)
-            break
+
     def parse_number_page(self, response) :
         job_cards = response.css('#company-list > div > div.content').getall()
         images = response.css('#company-list > div > div.logo.image').getall()
@@ -59,15 +59,15 @@ class RoketpunchSpider(scrapy.Spider):
                                                                                                     'job_card_company':job_card_company,
                                                                                                     'job_card_href':self.main_url+job_card_href,
                                                                                                     'logo_image' : image})
-                break
-            break
+
             
     def parse_job_detail(self, response) :
         doc = CrawlerItem()
         print(response.meta['job_card_title'],response.meta['job_card_company'])
         detail_tag = response.css('#wrap > div.eight.wide.job-content.column > section > div.job-specialties > a::text').getall()
         detail_main_work = response.css('#wrap > div.eight.wide.job-content.column > section:nth-child(1) ').getall()
-        detail_require = response.css('#wrap > div.eight.wide.job-content.column > section:nth-child(6) ').getall()
+        detail_foreign = response.css('#wrap > div.eight.wide.job-content.column > section:nth-child(6) ').getall()
+        detail_require = response.css('#wrap > div.eight.wide.job-content.column > section:nth-child(8) ').getall()
         detail_welfare = response.css('#wrap > div.eight.wide.job-content.column > section:nth-child(16) ').getall()
         detail_addr = response.css('#wrap > div.eight.wide.job-content.column > section > div.office.item > span.address::text').get()
         
@@ -86,7 +86,7 @@ class RoketpunchSpider(scrapy.Spider):
         doc['title'] = response.meta['job_card_title']
         doc['href'] = response.meta['job_card_href']
         
-        doc['main_text'] = ''.join(detail_main_work+detail_require+detail_welfare).replace("\'",'＇')
+        doc['main_text'] = '<br>'.join(detail_main_work+detail_foreign+detail_require+detail_welfare).replace("\'",'＇')
         doc['salary'] = table_dict['연봉']
         doc['skill_tag'] = arr2str(detail_tag).upper()
         doc['sector'] = response.meta['job_card_title']
@@ -96,6 +96,6 @@ class RoketpunchSpider(scrapy.Spider):
         
         doc['company_name'] = response.meta['job_card_company']
         doc['company_address'] = detail_addr
-        doc['crawl_date'] = str(date.today())
+        doc['crawl_date'] = str(datetime.now())
         
         yield doc
