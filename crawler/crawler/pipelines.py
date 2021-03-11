@@ -44,6 +44,6 @@ class CrawlerPipeline:
     def close_spider(self,spider) :
         email_postman = login_mail()
         send_mail(email_postman,f'{datetime.date.today()} {spider.name} 크롤링 보고서',
-                f'Summary stats from Scrapy spider:\n\n{spider.crawler.stats.get_stats()}',
+                f'Summary stats from {spider.name} crawler:\n\n{spider.crawler.stats.get_stats()}',
                 ['jgy206@gmail.com','endndnjs2@gmail.com'])
 
