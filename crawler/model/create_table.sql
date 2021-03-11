@@ -20,3 +20,4 @@ create table job_detail (
 ) DEFAULT CHARSET=utf8mb4; 
 desc job_detail;
 select * from job_detail;
+DELETE FROM job_detail WHERE platform = "programmers"
