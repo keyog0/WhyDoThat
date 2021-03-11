@@ -5,6 +5,7 @@ from datetime import datetime
 
 class WantedSpider(scrapy.Spider):
     name = 'wanted'
+    main_url = 'https://www.wanted.co.kr'
     custom_settings= {
         'DOWNLOADER_MIDDLEWARES': { 
             'crawler.middlewares.SeleniumMiddleware': 100 
@@ -13,7 +14,7 @@ class WantedSpider(scrapy.Spider):
             'crawler.pipelines.CrawlerPipeline': 300
         }
     }
-    main_url = 'https://www.wanted.co.kr'
+    start_time = None
     
     def start_requests(self):
         yield scrapy.Request(url=self.main_url+'/wdlist/518?country=kr&job_sort=job.latest_order&years=-1&locations=all',callback=self.parse_main_card)

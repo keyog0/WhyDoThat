@@ -15,6 +15,7 @@ class RoketpunchSpider(scrapy.Spider):
             'crawler.pipelines.CrawlerPipeline': 300
         }
     }
+    start_time = None
     
     def table2dict(self,labels,contents) :
         table_dict = dict()

@@ -10,6 +10,7 @@ def load_key(key_file) :
 
 def login_mail() :
     email_key = load_key('../keys/email_key.json')
+    print('Sending email')
     smtp = smtplib.SMTP('smtp.gmail.com', 587)
     smtp.ehlo()      # say Hello
     smtp.starttls()  # TLS 사용시 필요
