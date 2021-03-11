@@ -34,7 +34,7 @@ class CrawlerPipeline:
                 key_arr.append(key)
                 item_arr.append(self.create_sql_item(item,dtype=dtype_map[key]))
         
-        #sql_db.insert_data('job_detail',arr2str(key_arr),arr2str(item_arr))
+        sql_db.insert_data('job_detail',arr2str(key_arr),arr2str(item_arr))
         print('[Success]insert data for mysql')
         return items
 

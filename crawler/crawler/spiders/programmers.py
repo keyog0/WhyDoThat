@@ -46,7 +46,7 @@ class ProgrammersSpider(scrapy.Spider):
         print(last_page_number)
         print('-'*33)
         #paginate > nav > ul > li:nth-child(8) > a
-        for page_number in range(1,3):#last_page_number+1) :
+        for page_number in range(1,last_page_number+1) :
             yield scrapy.Request(url =self.main_url+f'/job?_=1610273854107&job_position%5Bdummy%5D=0&order=recent&page={page_number}',
                                  callback=self.parse_number_page)
             # break
