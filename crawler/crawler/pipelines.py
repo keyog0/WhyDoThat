@@ -10,8 +10,9 @@ from model.db_loader import MySQL
 import json
 import datetime
 from crawler.data_controller import arr2str
+from crawler.model.postman import login_mail,send_mail
 
-sql_db = MySQL(key_file='../keys/aws_sql_key.json',
+sql_db = MySQL(key_file='../keys/localhost_sql_key.json',
                database='crawl_job')
 with open('model/dtype_map.json') as file :
     dtype_map = json.load(file)
@@ -39,4 +40,10 @@ class CrawlerPipeline:
 
     def open_spider(self,spider) :
         sql_db.MYSQL_CONN = sql_db.conn_mysqldb()
+
+    def close_spider(self,spider) :
+        email_postman = login_mail()
+        send_mail(email_postman,f'{datetime.date.today()} {spider.name} 크롤링 보고서',
+                f'Summary stats from Scrapy spider:\n\n{spider.crawler.stats.get_stats()}',
+                ['jgy206@gmail.com','endndnjs2@gmail.com'])
 
