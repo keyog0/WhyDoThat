@@ -1,0 +1,8 @@
+pandas
+matplotlib
+pymysql
+tqdm
+konlpy
+scikit-learn
+tensorflow
+tensorflow-datasets

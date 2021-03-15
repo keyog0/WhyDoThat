@@ -1,0 +1,16 @@
+{
+    "title" : "string",
+    "href" : "string",
+    "main_text" : "string",
+    "salary" : "string",    
+    "skill_tag" : "string",
+    "sector" : "string",
+    "newbie" : "bool",
+    "career" : "string",
+    "deadline" : "datetime",
+    "company_name" : "string",
+    "company_address" : "string",
+    "platform" : "string",
+    "logo_image" : "string",
+    "crawl_date" : "string"
+}
