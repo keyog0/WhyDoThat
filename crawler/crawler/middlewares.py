@@ -58,6 +58,15 @@ class SeleniumMiddleware:
             time.sleep(0.5)
         except :
             print('[Notice] 더보기 버튼이 없습니다.')
+    
+    def naver_more_button(self):
+        # while True :
+            try :
+                self.driver.find_element_by_class_name('more_btn').click()
+                time.sleep(0.5)
+            except :
+                print('마지막 페이지까지 로드하였습니다.')
+                # break
 
     def process_request(self, request, spider):
         self.driver.get(request.url)
@@ -66,6 +75,8 @@ class SeleniumMiddleware:
             self.infinite_scroll_control()
         elif spider.name == 'roketpunch' and 'job_card_company' in request.meta :
             self.see_more_button_click()
+        elif spider.name == 'naver' and request.meta == {} :
+            self.naver_more_button()
             
         body = to_bytes(text=self.driver.page_source)
         return HtmlResponse(url = request.url, body = body, encoding='utf-8',request=request)

@@ -108,5 +108,6 @@ class ProgrammersSpider(scrapy.Spider):
         doc['company_name'] = response.meta['job_card_company']
         doc['company_address'] = table_dict['위치']
         doc['crawl_date'] = str(datetime.now())
+        doc['big_company'] = False
         
         yield doc

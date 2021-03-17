@@ -25,6 +25,7 @@ class CrawlerItem(scrapy.Item):
     
     company_name = scrapy.Field()
     company_address = scrapy.Field()
+    big_company = scrapy.Field()
     crawl_date = scrapy.Field()
 
 class JobplanetItem(scrapy.Item) :
