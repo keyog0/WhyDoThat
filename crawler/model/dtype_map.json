@@ -12,5 +12,6 @@
     "company_address" : "string",
     "platform" : "string",
     "logo_image" : "string",
-    "crawl_date" : "string"
+    "crawl_date" : "string",
+    "big_company" : "bool",
 }
