@@ -29,6 +29,12 @@ def control_deadline(data,separator='.') :
         return datetime.strptime(data,f'%Y{separator}%m{separator}%d').strftime('%Y-%m-%d')
     except :
         return None
+
+def control_deadline_kakao(data) :
+    if data == '영입종료시' :
+        return None
+    else :
+        return remove_blank(data).replace('년','-').replace('월','-').replace('일','').replace('까지','')
     
 def control_deadline_programmers(data) :
     tmp = data.split(' ')
@@ -39,3 +45,7 @@ def control_deadline_programmers(data) :
         print(data)
         print(tmp)
         return tmp[3]
+
+def control_skill_tag_naver(data) :
+    data = ''.join(data).replace('\n','').replace('\t','').split('#')
+    return ','.join([x.upper().replace(' ','') for x in data if x != ''])
