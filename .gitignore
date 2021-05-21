@@ -3,6 +3,8 @@ __pycache__
 venv
 flask-env
 anal-env
+kafka-env
+data_engineering
 backend-example
 keys
 glove*
