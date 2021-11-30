@@ -1,4 +1,5 @@
 import pymysql
+from pymysql.cursors import DictCursor
 import json
 
 class MySQL :
@@ -10,7 +11,8 @@ class MySQL :
                                 user=KEY['user'],
                                 passwd=KEY['password'],
                                 db=database,
-                                charset='utf8mb4')
+                                charset='utf8mb4',
+                                cursorclass=DictCursor)
     
     def load_key(self,key_file) :
         with open(key_file) as key_file :
@@ -31,3 +33,11 @@ class MySQL :
         sql_query = f"INSERT INTO {table} ({key})  VALUES ({data})"
         db_cursor.execute(sql_query)
         db.commit()
+        
+    def get_data(self,table) :
+        db = self.conn_mysqldb()
+        db_cursor = db.cursor()
+        sql_query = f"SELECT * FROM {table}"
+        db_cursor.execute(sql_query)
+        return db_cursor.fetchall()
+        
